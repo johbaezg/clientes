@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 
-const API_KEY = process.env.REACT_APP_API_KEY;
-const APP_ID = process.env.REACT_APP_APP_ID;
-const AUTH_TOKEN = process.env.REACT_APP_AUTH_TOKEN;
+const AUTH_TOKEN = process.env.AUTH_TOKEN;
 
 function App() {
   const [clientes, setClientes] = useState([]);
