@@ -1,7 +1,15 @@
+// File: /api/clientes.js
+
 export default async function handler(req, res) {
   const APP_ID = process.env.APP_ID;
   const API_KEY = process.env.API_KEY;
+  const AUTH_TOKEN = process.env.AUTH_TOKEN;
   const TABLE_NAME = 'Clientes';
+
+  const authHeader = req.headers.authorization;
+  if (!authHeader || authHeader !== `Bearer ${AUTH_TOKEN}`) {
+    return res.status(401).json({ error: 'No autorizado' });
+  }
 
   if (!APP_ID || !API_KEY) {
     return res.status(500).json({ error: 'Faltan variables de entorno' });
@@ -27,7 +35,7 @@ export default async function handler(req, res) {
     const { Clientes } = req.body;
 
     if (!Clientes || typeof Clientes !== 'string') {
-      return res.status(400).json({ error: 'El campo \"Clientes\" es requerido y debe ser texto' });
+      return res.status(400).json({ error: 'El campo "Clientes" es requerido y debe ser texto' });
     }
 
     const body = JSON.stringify({
